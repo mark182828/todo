@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e1e2e">
+    <title>تطبيق المهام</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- إضافة أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- ملف مانيفست للـ PWA -->
+    <link rel="manifest" href="manifest.json">
+    <!-- أيقونات للتطبيق -->
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- شريط التقدم -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="progress-text" id="progress-text">0%</div>
+        </div>
+
+        <!-- نموذج إضافة مهمة جديدة -->
+        <div class="task-form">
+            <input type="text" id="task-input" placeholder="أضف مهمة جديدة...">
+            <button id="add-task-btn"><i class="fas fa-plus"></i></button>
+        </div>
+
+        <!-- قائمة المهام -->
+        <div class="tasks-container">
+            <ul id="tasks-list">
+                <!-- ستتم إضافة المهام هنا بواسطة JavaScript -->
+            </ul>
+        </div>
+
+        <!-- أزرار التحكم -->
+        <div class="control-buttons">
+            <button id="reset-tasks-btn" class="control-btn">إعادة تعيين المهام</button>
+            <button id="clear-tasks-btn" class="control-btn">حذف جميع المهام</button>
+        </div>
+    </div>
+
+    <!-- قالب للمهمة (سيتم استنساخه بواسطة JavaScript) -->
+    <template id="task-template">
+        <li class="task-item">
+            <div class="task-content">
+                <span class="task-counter">0</span>
+                <span class="task-text"></span>
+            </div>
+            <div class="task-actions">
+                <button class="task-complete-btn"><i class="fas fa-check"></i></button>
+                <button class="task-incomplete-btn"><i class="fas fa-times"></i></button>
+                <button class="task-menu-btn"><i class="fas fa-ellipsis-v"></i></button>
+                <div class="task-menu">
+                    <button class="task-edit-btn"><i class="fas fa-edit"></i> تعديل</button>
+                    <button class="task-delete-btn"><i class="fas fa-trash"></i> حذف</button>
+                </div>
+            </div>
+        </li>
+    </template>
+
+    <!-- Service Worker للـ PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+    
+    <script src="main.js"></script>
+</body>
+</html>
